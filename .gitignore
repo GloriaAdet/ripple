@@ -2,12 +2,14 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
-.venv/
 *.egg-info/
+.venv/
+*.pyc
 
-# Environment variables
+# Environment variables and secrets
 .env
 .env.*
+!.env.example
 
 # Node / React
 node_modules/
