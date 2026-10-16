@@ -1,6 +1,7 @@
 import pytest
 from app.graph import Graph
 
+
 def test_add_location():
     graph = Graph()
     graph.add_location("A")

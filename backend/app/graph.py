@@ -43,3 +43,10 @@ class Graph:
             raise ValueError("Location is not in the graph")
         
         return self._adjacency_list[location].copy()
+
+    # Get all locations in the graph
+    def get_locations(self) -> list[str]:
+
+        # Return all location names in the graph without exposing the internal dictionary
+        return list(self._adjacency_list.keys())
+    
