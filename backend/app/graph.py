@@ -1,4 +1,5 @@
 import math
+from app.road import Road
 
 class Graph:
     # A graph represented as an adjacency list
@@ -17,23 +18,15 @@ class Graph:
             end: str,
             travel_time: float
     ) -> None:
-        # Validate input, travel time cannot be negative, roads are bidirectional
-        # A road cannot connect a location to itself
-        # Only connect locations that exist in the graph
-        if start == end:
-            raise ValueError("A road cannot connect a location to itself")
-        
-        if not math.isfinite(travel_time) or travel_time < 0:
-            raise ValueError("Travel time must be a finite, nonnegative number")
-        
+        road = Road(start, end, travel_time)
+
         if start not in self._adjacency_list:
             raise ValueError("Start location is not in the graph")
-
         if end not in self._adjacency_list:
             raise ValueError("End location is not in the graph")
 
-        self._adjacency_list[start][end] = travel_time
-        self._adjacency_list[end][start] = travel_time
+        self._adjacency_list[start][end] = road.travel_time
+        self._adjacency_list[end][start] = road.travel_time
 
     # Get the neighbors of a location along with travel times
     def get_neighbors(self, location: str) -> dict[str, float]:
@@ -44,9 +37,5 @@ class Graph:
         
         return self._adjacency_list[location].copy()
 
-    # Get all locations in the graph
     def get_locations(self) -> list[str]:
-
-        # Return all location names in the graph without exposing the internal dictionary
         return list(self._adjacency_list.keys())
-    
