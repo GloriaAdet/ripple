@@ -75,10 +75,21 @@ def dijkstra(
         # Get neighbors of the current location
         neighbors = graph.get_neighbors(current_location)
 
-        for neighbor, weight in neighbors.items():
-            if relax_edge(current_location, neighbor, weight, distances):
+        for neighbor, road in neighbors.items():
+            if not road.is_open:
+                continue
+
+            if relax_edge(
+                current_location,
+                neighbor,
+                road.travel_time,
+                distances,
+            ):
                 previous[neighbor] = current_location
-                heapq.heappush(priority_queue, (distances[neighbor], neighbor))
+                heapq.heappush(
+                    priority_queue,
+                    (distances[neighbor], neighbor),
+                )
 
     # Check if no path was found
     if distances[end] == float('inf'):
